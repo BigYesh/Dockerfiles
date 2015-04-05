@@ -6,20 +6,12 @@ RUN apt-get update \
     python2.7 \
     python-setuptools
 
-RUN easy_install pip \
-    && pip install virtualenv
+RUN easy_install pip
 
-ENV WORKON_HOME /opt/virtualenvs
+ENV WORKON_HOME /root
 
-RUN mkdir $WORKON_HOME \
-    && echo "export PIP_VIRTUALENV_BASE=$WORKON_HOME" >> ~/.bashrc \
-    && echo "export WORKON_HOME=$WORKON_HOME" >> ~/.bashrc
-
-RUN cd $WORKON_HOME \ 
-    && virtualenv --no-site-packages gmvault-1.7-beta
-
-RUN cd $WORKON_HOME/gmvault-1.7-beta/bin \
-    && pip install gmvault
+RUN cd $WORKON_HOME \
+    && pip install gmvault --allow-all-external
 
 WORKDIR /root
 
