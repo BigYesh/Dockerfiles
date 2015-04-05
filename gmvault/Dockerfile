@@ -21,4 +21,4 @@ WORKDIR /root
 #ENTRYPOINT gmvault sync -m --db-dir /opt/emails jayesh.coupland@gmail.com
 
 #CMD ["gmvault", "--help"]
-CMD /bin/bash "-c" "gmvault sync -m jayesh.coupland@gmail.com"
+CMD /bin/bash "-c" "gmvault sync -m -e --db-dir /opt/emails jayesh.coupland@gmail.com"
