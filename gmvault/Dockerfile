@@ -18,6 +18,9 @@ RUN mkdir $WORKON_HOME \
 RUN cd $WORKON_HOME \ 
     && virtualenv --no-site-packages gmvault-1.7-beta
 
+RUN cd $WORKON_HOME/gmvault-1.7-beta/bin \
+    && pip install gmvault
+
 WORKDIR /root
 
 CMD ["/bin/bash"]
