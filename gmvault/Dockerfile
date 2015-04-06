@@ -1,12 +1,14 @@
-FROM ubuntu:latest
+FROM debian:latest
 MAINTAINER Jayesh Coupland <Jayesh.Coupland+docker@gmail.com>
 
 RUN apt-get update \
     && apt-get install -y \
     python2.7 \
-    python-setuptools
+    python-setuptools \
+    cron
 
-RUN easy_install pip
+RUN easy_install -U distribute \
+    && easy_install pip
 
 ENV WORKON_HOME /root
 
@@ -21,4 +23,9 @@ WORKDIR /root
 #ENTRYPOINT gmvault sync -m --db-dir /opt/emails jayesh.coupland@gmail.com
 
 #CMD ["gmvault", "--help"]
-CMD /bin/bash "-c" "gmvault sync -m -e --db-dir /opt/emails jayesh.coupland@gmail.com"
+
+ADD cron.conf /root/cron.conf
+
+RUN crontab /root/cron.conf
+
+CMD cron "-f" "> /tmp/cronlog"
